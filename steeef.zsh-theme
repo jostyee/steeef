@@ -12,21 +12,6 @@
 # git untracked files modification from Brian Carper:
 # http://briancarper.net/blog/570/git-info-in-your-zsh-prompt
 
-function k8s_info {
-  if [ -f ~/.kube/config ]; then
-    k8s_context=$(cat ~/.kube/config | grep "current-context:" | sed "s/current-context: //")
-    if [ ! -z $k8s_context ]; then
-      echo " %F{135}(k8s: $k8s_context)"
-    fi
-  fi
-}
-
-function aws_info {
-  if [ ! -z $AWS_PROFILE ]; then
-    echo " %F{111}(aws: $AWS_PROFILE)"
-  fi
-}
-
 setopt prompt_subst
 
 autoload -U add-zsh-hook
@@ -90,5 +75,5 @@ add-zsh-hook precmd steeef_precmd
 pr_24h_clock=' %*'
 
 PROMPT=$'
-%{$purple%}%n${PR_RST}@%{$orange%}%m${PR_RST} %{$limegreen%}%~${PR_RST}$vcs_info_msg_0_$(k8s_info)$(aws_info)%{$orange%}$pr_24h_clock${PR_RST}
+%{$purple%}%n${PR_RST}@%{$orange%}%m${PR_RST} %{$limegreen%}%~${PR_RST}$vcs_info_msg_0_%{$orange%}$pr_24h_clock${PR_RST}
 $ '
